@@ -2,6 +2,8 @@ package com.bdeesorn_r.shopping_list.dao;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -13,17 +15,18 @@ import lombok.Setter;
 @Table(schema = "shopping_list", name = "sl_user")
 public class UserDao extends CommonDao {
     @Id
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id;
 
     @Column(name = "username")
-    private String username;
+    protected String username;
 
     @Column(name = "email")
-    private String email;
+    protected String email;
 
     @Column(name = "salt")
-    private byte[] salt;
+    protected String salt;
 
     @Column(name = "hashed_password")
-    private byte[] hashedPassword;
+    protected String hashedPassword;
 }
