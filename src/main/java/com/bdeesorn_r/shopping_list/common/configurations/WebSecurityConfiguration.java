@@ -11,12 +11,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfiguration {
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(
-                authz -> authz.requestMatchers("**").permitAll().anyRequest().authenticated())
-                .csrf(authz -> authz.ignoringRequestMatchers("**"))
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults());
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(authz -> authz.ignoringRequestMatchers("**"))
+            .authorizeHttpRequests(
+                    authz -> authz.requestMatchers("**").permitAll().anyRequest().authenticated())
+            .httpBasic(Customizer.withDefaults())
+            .formLogin(Customizer.withDefaults());
         return http.build();
     }
+
+    // @Bean
+    // public SecurityFilterChain corsFilterChain(HttpSecurity http) throws Exception {
+    //     http.cors(Customizer.withDefaults());
+    //     http.addFilterBefore(null, UsernamePasswordAuthenticationFilter.class)
+    //     return http.build();
+    // }
 }

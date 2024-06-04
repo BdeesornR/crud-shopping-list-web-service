@@ -2,16 +2,17 @@ package com.bdeesorn_r.shopping_list.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bdeesorn_r.shopping_list.dao.UserDao;
 import com.bdeesorn_r.shopping_list.dto.request.RequestUserDto;
 import com.bdeesorn_r.shopping_list.dto.response.ResponseCommonDto;
 import com.bdeesorn_r.shopping_list.services.UserService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -21,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/sign-up")
     public ResponseEntity<ResponseCommonDto> createNewUser(@RequestBody RequestUserDto userDto) {
         return ResponseEntity.ok().body(userService.createNewUser(userDto));
     }
