@@ -1,5 +1,8 @@
 package com.bdeesorn_r.shopping_list.services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bdeesorn_r.shopping_list.dao.UserDao;
 import com.bdeesorn_r.shopping_list.dto.request.RequestUserDto;
 import com.bdeesorn_r.shopping_list.dto.response.ResponseCommonDto;
+import com.bdeesorn_r.shopping_list.dto.response.ResponseUserDto;
 import com.bdeesorn_r.shopping_list.repositories.UserRepo;
 
 @Service
@@ -41,5 +45,16 @@ public class UserService {
         }
 
         return new ResponseCommonDto("200", "User created successfully");
+    }
+
+    public ResponseCommonDto showAllUser() {
+        List<UserDao> userList = userRepo.findAll();
+
+        return new ResponseCommonDto("200",
+                userList.stream().map(elem -> {
+                    ResponseUserDto userDto = new ResponseUserDto();
+                    userDto.setUsername(elem.getUsername());
+                    return userDto;
+                }).collect(Collectors.toList()));
     }
 }

@@ -9,6 +9,7 @@ import com.bdeesorn_r.shopping_list.services.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -27,4 +28,8 @@ public class UserController {
         return ResponseEntity.ok().body(userService.createNewUser(userDto));
     }
 
+    @GetMapping(value = "/show-all-user")
+    public ResponseEntity<ResponseCommonDto> showAllUser() {
+        return ResponseEntity.ok().body(userService.showAllUser());
+    }
 }
